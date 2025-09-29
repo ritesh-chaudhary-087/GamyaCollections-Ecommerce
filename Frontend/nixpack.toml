@@ -1,0 +1,12 @@
+[phases.setup]
+commands = ["cd Frontend && npm install"]
+
+[phases.build]
+commands = ["cd Frontend && npm run build"]
+
+[phases.start]
+commands = ["cd Frontend && npm start"]
+
+[env]
+NODE_ENV = "production"
+PORT = "3000"
