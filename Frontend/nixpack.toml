@@ -1,11 +1,11 @@
 [phases.setup]
-commands = ["npm install"]
+commands = ["cd Frontend && npm install"]
 
 [phases.build]
-commands = ["npm run build"]
+commands = ["cd Frontend && npm run build"]
 
 [phases.start]
-commands = ["npm start"]
+commands = ["cd Frontend && npm start"]
 
 [env]
 NODE_ENV = "production"
