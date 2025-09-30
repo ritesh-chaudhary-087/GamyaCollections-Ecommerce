@@ -9,14 +9,6 @@ const HOST = "0.0.0.0";
 // Load environment variables
 dotenv.config();
 
-const path = require("path");
-app.use(express.static(path.join(__dirname, "public")));
-
-// Serve React frontend
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
 
 // Create Express app
 const app = express();
@@ -27,10 +19,10 @@ const allowedOrigins = [
   "http://localhost:3001",
   "http://localhost:5173",
   "http://localhost:5174",
-  "http://142.93.220.230:3000",
+  "http://72.60.200.66:5000",
   "https://gamyacollections.com",
   "http://gamyacollections.com",
-  "https://api.gamyacollections.com",
+  // "https://api.gamyacollections.com",
 ];
 const corsOptions = {
   origin: (origin, callback) => {
@@ -85,17 +77,17 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 // Custom caching for static files
-app.use(
-  express.static(path.join(__dirname, "build"), {
-    setHeaders: (res, filePath) => {
-      if (filePath.endsWith("index.html")) {
-        res.setHeader("Cache-Control", "no-cache");
-      } else {
-        res.setHeader("Cache-Control", "public, max-age=1536000, immutable");
-      }
-    },
-  })
-);
+// app.use(
+//   express.static(path.join(__dirname, "build"), {
+//     setHeaders: (res, filePath) => {
+//       if (filePath.endsWith("index.html")) {
+//         res.setHeader("Cache-Control", "no-cache");
+//       } else {
+//         res.setHeader("Cache-Control", "public, max-age=1536000, immutable");
+//       }
+//     },
+//   })
+// );
 
 // Connect to MongoDB
 mongoose
@@ -136,6 +128,28 @@ app.use("/api/razorpay", razorpayRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/videos", videoRoutes);
+
+
+
+// -----------------------
+// React Frontend Serving
+// -----------------------
+app.use(
+  express.static(path.join(__dirname, "public"), {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith("index.html")) {
+        res.setHeader("Cache-Control", "no-cache");
+      } else {
+        res.setHeader("Cache-Control", "public, max-age=1536000, immutable");
+      }
+    },
+  })
+);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 
 // Test Route
 app.get("/", (req, res) => {

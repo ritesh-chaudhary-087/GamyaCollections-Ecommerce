@@ -1,7 +1,11 @@
 # nixpack.toml
 
+# Explicitly tell Nixpacks this is a Node.js app
+[provider]
+name = "node"
+
 # -----------------------
-# Install + Build Phase
+# Setup Node.js & NPM
 # -----------------------
 [phases.setup]
 nixPkgs = ["nodejs", "npm"]
@@ -12,7 +16,6 @@ nixPkgs = ["nodejs", "npm"]
 [phases.backend]
 dir = "Backend"
 install = "npm install --production"
-# No separate build step needed unless you transpile
 build = "echo 'Backend build skipped'"
 
 # -----------------------
@@ -22,7 +25,6 @@ build = "echo 'Backend build skipped'"
 dir = "Frontend"
 install = "npm install"
 build = "npm run build"
-# Output goes to ../Backend/public so Express can serve it
 postBuild = "cp -r build ../Backend/public"
 
 # -----------------------
