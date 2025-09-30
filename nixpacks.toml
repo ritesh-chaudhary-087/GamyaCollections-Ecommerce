@@ -6,7 +6,7 @@ name = "node"
 # Setup Node.js & NPM
 # -----------------------
 [phases.setup]
-nixPkgs = ["nodejs", "npm"]
+nixPkgs = ["nodejs"]
 
 # -----------------------
 # Install Phase
