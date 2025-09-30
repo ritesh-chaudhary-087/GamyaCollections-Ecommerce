@@ -1,6 +1,4 @@
-# nixpack.toml
-
-# Explicitly tell Nixpacks this is a Node.js app
+# Tell Nixpacks this is a Node.js app
 [provider]
 name = "node"
 
@@ -11,21 +9,20 @@ name = "node"
 nixPkgs = ["nodejs", "npm"]
 
 # -----------------------
-# Backend Setup
+# Install Phase
 # -----------------------
-[phases.backend]
-dir = "Backend"
-install = "npm install --production"
-build = "echo 'Backend build skipped'"
+[phases.install]
+# Install backend first
+command = "cd Backend && npm install && cd ../Frontend && npm install"
 
 # -----------------------
-# Frontend Build
+# Build Phase
 # -----------------------
-[phases.frontend]
-dir = "Frontend"
-install = "npm install"
-build = "npm run build"
-postBuild = "cp -r build ../Backend/public"
+[phases.build]
+command = """
+cd Frontend && npm run build && \
+cp -r build ../Backend/public
+"""
 
 # -----------------------
 # Start Phase
