@@ -1,0 +1,39 @@
+# nixpack.toml
+
+# -----------------------
+# Install + Build Phase
+# -----------------------
+[phases.setup]
+nixPkgs = ["nodejs", "npm"]
+
+# -----------------------
+# Backend Setup
+# -----------------------
+[phases.backend]
+dir = "Backend"
+install = "npm install --production"
+# No separate build step needed unless you transpile
+build = "echo 'Backend build skipped'"
+
+# -----------------------
+# Frontend Build
+# -----------------------
+[phases.frontend]
+dir = "Frontend"
+install = "npm install"
+build = "npm run build"
+# Output goes to ../Backend/public so Express can serve it
+postBuild = "cp -r build ../Backend/public"
+
+# -----------------------
+# Start Phase
+# -----------------------
+[start]
+cmd = "cd Backend && npm start"
+
+# -----------------------
+# Environment
+# -----------------------
+[env]
+PORT = "5000"
+NODE_ENV = "production"

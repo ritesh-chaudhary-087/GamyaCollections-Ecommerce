@@ -9,6 +9,15 @@ const HOST = "0.0.0.0";
 // Load environment variables
 dotenv.config();
 
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
+
+// Serve React frontend
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+
 // Create Express app
 const app = express();
 
