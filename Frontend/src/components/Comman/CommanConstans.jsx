@@ -1,9 +1,9 @@
 import axios from "axios";
 
 // API Configuration
-// export const BASEURL = "https://api.gettrendy.in";
- export const BASEURL = "http://localhost:5000";
-// export const BASEURL = "";
+ export const BASEURL = "http://api.gamyacollections.com";
+// export const BASEURL = "http://localhost:5000";
+
 
 
 // Helper function to get proper image URL
