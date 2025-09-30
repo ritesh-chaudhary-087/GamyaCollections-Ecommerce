@@ -19,7 +19,7 @@ const allowedOrigins = [
   "http://localhost:3001",
   "http://localhost:5173",
   "http://localhost:5174",
-  "http://72.60.200.66:5000",
+  "http://72.60.200.66:3000",
   "https://gamyacollections.com",
   "http://gamyacollections.com",
   // "https://api.gamyacollections.com",
@@ -134,6 +134,7 @@ app.use("/api/videos", videoRoutes);
 // -----------------------
 // React Frontend Serving
 // -----------------------
+// ✅ Serve static files
 app.use(
   express.static(path.join(__dirname, "public"), {
     setHeaders: (res, filePath) => {
@@ -146,9 +147,11 @@ app.use(
   })
 );
 
-app.get("*", (req, res) => {
+// ✅ Catch-all fallback for React Router (no regex, no crash)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
 
 
 // Test Route

@@ -3,6 +3,8 @@ import axios from "axios";
 // API Configuration
 // export const BASEURL = "https://api.gettrendy.in";
  export const BASEURL = "http://localhost:5000";
+// export const BASEURL = "";
+
 
 // Helper function to get proper image URL
 export function getImageUrl(path) {
