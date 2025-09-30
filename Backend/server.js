@@ -19,7 +19,7 @@ const allowedOrigins = [
   "http://localhost:3001",
   "http://localhost:5173",
   "http://localhost:5174",
-  "http://72.60.200.66:3000",
+ "http://72.60.200.66:5000",
   "https://gamyacollections.com",
   "http://gamyacollections.com",
   // "https://api.gamyacollections.com",
